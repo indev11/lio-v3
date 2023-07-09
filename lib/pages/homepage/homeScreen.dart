@@ -1,14 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:intl/intl.dart';
 import 'package:project/colors.dart';
-import 'package:project/main.dart';
 import 'package:project/pages/blog/blog.dart';
-import 'package:project/pages/blog/create.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import 'package:project/pages/loginScreen.dart';
 import 'package:project/pages/professionalCare/doctor.dart';
@@ -23,10 +19,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  var currentDate;
+  var currentDate;var formattedate;
   @override
   void initState() {
-    currentDate = DateTime.now().toString();
+    currentDate = DateTime.now();
+    formattedate=DateFormat('dd-MMM-yy').format(currentDate);
     super.initState();
   }
 
@@ -102,7 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             height: 8,
                           ),
                           Text(
-                            getCurrentDate(),
+                            "$formattedate",
                             style: TextStyle(
                               color: Color.fromARGB(70, 188, 216, 239),
                             ),
@@ -208,7 +205,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           Container(
                               decoration: BoxDecoration(
-                                color: Color.fromARGB(73, 130, 189, 237),
+                                color: Color.fromRGBO(130, 189, 237, 0.286),
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               padding: EdgeInsets.all(12),

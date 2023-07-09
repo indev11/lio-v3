@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:project/pages/selfcare/joural/model/user_models.dart';
+import 'package:project/pages/selfcare/journal/model/user_models.dart';
 
 class EditPage extends StatefulWidget {
   final UserModel user;

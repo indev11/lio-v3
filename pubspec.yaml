@@ -49,6 +49,7 @@ dependencies:
 
   font_awesome_flutter: ^9.1.0
   cloud_firestore: ^4.8.2
+  like_button: ^2.0.5
 
 dev_dependencies:
   flutter_test:

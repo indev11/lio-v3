@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:project/pages/selfcare/joural/model/user_models.dart';
+import 'package:project/pages/selfcare/journal/model/user_models.dart';
 
 class firestoreHelper {
   static Stream<List<UserModel>> read() {

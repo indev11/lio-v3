@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/colors.dart';
-import 'package:project/pages/selfcare/landscape_player_page.dart';
+import 'package:project/pages/selfcare/yoga/landscape_player_page.dart';
 import 'package:video_player/video_player.dart';
 import 'package:perfect_volume_control/perfect_volume_control.dart';
 
@@ -10,14 +10,14 @@ import 'package:perfect_volume_control/perfect_volume_control.dart';
  
  
 
-class V5yoga extends StatefulWidget {
-  const V5yoga({Key? key}) : super(key: key);
+class Video3 extends StatefulWidget {
+  const Video3({Key? key}) : super(key: key);
 
   @override
-  State<V5yoga> createState() => _V5yogaState();
+  State<Video3> createState() => _Video3State();
 }
 
-class _V5yogaState extends State<V5yoga> {
+class _Video3State extends State<Video3> {
   double currentvol = 0.5;
   VideoPlayerController? _controller;
 
@@ -34,7 +34,7 @@ class _V5yogaState extends State<V5yoga> {
     //   });
 
     /// load video from asset
-    _controller = VideoPlayerController.asset("images/yoga5.mp4")..initialize().then((_) {
+    _controller = VideoPlayerController.asset("images/meditation4.mp4")..initialize().then((_) {
       // Ensure the first frame is shown after the video is initialized,
       // even before the play button has been pressed.
       setState(() {});
@@ -70,7 +70,7 @@ class _V5yogaState extends State<V5yoga> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Session 5"),
+        title: const Text("Session 4"),
       ),
       body: Column(
         children: [

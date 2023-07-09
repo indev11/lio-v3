@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:project/colors.dart';
 import 'package:project/pages/selfcare/catagories.dart';
-import 'package:project/pages/selfcare/v1yoga.dart';
-import 'package:project/pages/selfcare/v2yoga.dart';
-import 'package:project/pages/selfcare/v3yoga.dart';
-import 'package:project/pages/selfcare/v4yoga.dart';
-import 'package:project/pages/selfcare/v5yoga.dart';
+import 'package:project/pages/selfcare/yoga/v1yoga.dart';
+import 'package:project/pages/selfcare/yoga/v2yoga.dart';
+import 'package:project/pages/selfcare/yoga/v3yoga.dart';
+import 'package:project/pages/selfcare/yoga/v4yoga.dart';
+import 'package:project/pages/selfcare/yoga/v5yoga.dart';
 
 class Yoga extends StatelessWidget {
   @override

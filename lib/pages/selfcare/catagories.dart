@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:project/colors.dart';
 import 'package:project/pages/homepage/homeScreen.dart';
 import 'package:project/pages/selfcare/exercise/home_view.dart';
-import 'package:project/pages/selfcare/joural/home.dart';
-import 'package:project/pages/selfcare/meditation.dart';
-import 'package:project/pages/selfcare/yoga.dart';
+import 'package:project/pages/selfcare/journal/home.dart';
+import 'package:project/pages/selfcare/meditation/meditation.dart';
+import 'package:project/pages/selfcare/yoga/yoga.dart';
 
 class Catagories extends StatelessWidget {
   const Catagories({super.key});

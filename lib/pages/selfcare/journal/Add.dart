@@ -1,10 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:project/colors.dart';
-
-import 'package:project/pages/selfcare/joural/model/user_models.dart';
+import 'package:project/pages/selfcare/journal/model/user_models.dart';
 
 class AddTask extends StatefulWidget {
   const AddTask({Key? key}) : super(key: key);
@@ -21,7 +18,7 @@ class _AddTaskState extends State<AddTask> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add Task"),
+        title: Text("Add an Entry"),
         backgroundColor: primary,
       ),
       body: Padding(
@@ -34,36 +31,38 @@ class _AddTaskState extends State<AddTask> {
             TextFormField(
               controller: titleController,
               decoration: InputDecoration(
-                  labelText: 'Enter title', border: OutlineInputBorder()),
+                labelText: 'Enter title',
+                border: OutlineInputBorder(),
+              ),
             ),
             SizedBox(
               height: 10,
             ),
             TextFormField(
               controller: descriptionController,
+              maxLines: null,
+              keyboardType: TextInputType.multiline,
               decoration: InputDecoration(
-                  labelText: 'Enter description', border: OutlineInputBorder()),
+                labelText: 'Enter description',
+                border: OutlineInputBorder(),
+              ),
             ),
             SizedBox(
               height: 10,
             ),
             ElevatedButton(
-                onPressed: () {
-                  //addtaskToFirebase();
-                  firestoreHelper
-                      .create(UserModel(
-                          title: titleController.text,
-                          description: descriptionController.text))
-                      .then((value) => {Navigator.pop(context)});
-                },
-                style: ButtonStyle(backgroundColor:
-                    MaterialStateProperty.resolveWith<Color>(
-                        (Set<MaterialState> states) {
-                  if (states.contains(MaterialState.pressed))
-                    return Colors.green;
-                  return Colors.pink;
-                })),
-                child: Text("Add Task"))
+              onPressed: () {
+                firestoreHelper.create(UserModel(
+                  title: titleController.text,
+                  description: descriptionController.text,
+                )).then((value) => Navigator.pop(context));
+              },
+              style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Color(0xFF111634)),
+              ),
+              child: Text("Add Entry"),
+            ),
           ],
         ),
       ),
@@ -93,7 +92,7 @@ class firestoreHelper {
     try {
       await docRef.set(newUser);
     } catch (e) {
-      print("some error occured");
+      print("Some error occurred: $e");
     }
   }
 
@@ -111,7 +110,7 @@ class firestoreHelper {
     try {
       await docRef.update(newUser);
     } catch (e) {
-      print("some error occured");
+      print("Some error occurred: $e");
     }
   }
 

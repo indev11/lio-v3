@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:project/colors.dart';
 import 'package:project/pages/selfcare/catagories.dart';
-import 'package:project/pages/selfcare/video.dart';
-import 'package:project/pages/selfcare/video1.dart';
-import 'package:project/pages/selfcare/video2.dart';
-import 'package:project/pages/selfcare/video3.dart';
-import 'package:project/pages/selfcare/video4.dart';
+import 'package:project/pages/selfcare/yoga/video.dart';
+import 'package:project/pages/selfcare/yoga/video1.dart';
+import 'package:project/pages/selfcare/yoga/video2.dart';
+import 'package:project/pages/selfcare/yoga/video3.dart';
+import 'package:project/pages/selfcare/yoga/video4.dart';
 
 class Meditation extends StatelessWidget {
   @override

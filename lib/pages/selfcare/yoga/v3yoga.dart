@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/colors.dart';
-import 'package:project/pages/selfcare/landscape_player_page.dart';
+import 'package:project/pages/selfcare/yoga/landscape_player_page.dart';
 import 'package:video_player/video_player.dart';
 import 'package:perfect_volume_control/perfect_volume_control.dart';
 

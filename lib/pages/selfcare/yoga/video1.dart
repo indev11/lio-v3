@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/colors.dart';
-import 'package:project/pages/selfcare/landscape_player_page.dart';
+import 'package:project/pages/selfcare/yoga/landscape_player_page.dart';
 import 'package:video_player/video_player.dart';
 import 'package:perfect_volume_control/perfect_volume_control.dart';
 
@@ -10,14 +10,14 @@ import 'package:perfect_volume_control/perfect_volume_control.dart';
  
  
 
-class Video extends StatefulWidget {
-  const Video({Key? key}) : super(key: key);
+class Video1 extends StatefulWidget {
+  const Video1({Key? key}) : super(key: key);
 
   @override
-  State<Video> createState() => _VideoState();
+  State<Video1> createState() => _Video1State();
 }
 
-class _VideoState extends State<Video> {
+class _Video1State extends State<Video1> {
   double currentvol = 0.5;
   VideoPlayerController? _controller;
 
@@ -34,7 +34,7 @@ class _VideoState extends State<Video> {
     //   });
 
     /// load video from asset
-    _controller = VideoPlayerController.asset("images/meditation1.mp4")..initialize().then((_) {
+    _controller = VideoPlayerController.asset("images/meditation2.mp4")..initialize().then((_) {
       // Ensure the first frame is shown after the video is initialized,
       // even before the play button has been pressed.
       setState(() {});
@@ -46,8 +46,7 @@ class _VideoState extends State<Video> {
     /// _controller.setVolume(volume) -> value between 0.0 (silent) and 1.0 (full volume)
     /// _controller.setLooping(looping) -> repeat video
   }
-
-  String _videoDuration(Duration duration) {
+   String _videoDuration(Duration duration) {
     String twoDigits(int n) => n.toString().padLeft(2, '0');
     final hours = twoDigits(duration.inHours);
     final minutes = twoDigits(duration.inMinutes.remainder(60));
@@ -71,7 +70,7 @@ class _VideoState extends State<Video> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Session 1"),
+        title: const Text("Session 2"),
       ),
       body: Column(
         children: [
@@ -81,8 +80,6 @@ class _VideoState extends State<Video> {
               aspectRatio: _controller!.value.aspectRatio,
               child: VideoPlayer(_controller!,),
             ) : Container(),
-          
-            
           ),
           Row(
             children: [
@@ -131,8 +128,8 @@ class _VideoState extends State<Video> {
             ],
           )
         ],
+        
       ),
-      
       floatingActionButton: FloatingActionButton(
         onPressed: buttonPressed,
         child: Icon(

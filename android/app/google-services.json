@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1018352332566",
+    "project_id": "let-it-out-a0b13",
+    "storage_bucket": "let-it-out-a0b13.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1018352332566:android:730b63e4f1a743d4cb6a37",
+        "android_client_info": {
+          "package_name": "com.example.project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1018352332566-vbbs1jilr261lncjv14vtncdllboo2rr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.project",
+            "certificate_hash": "4363737dd9c55072538859daf56335d024a059b2"
+          }
+        },
+        {
+          "client_id": "1018352332566-bl2fjsp56t72gv1he27d9ud30cnknic2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwWU-KnzvK7xp-nhyI2Biwzo0ZkJPIlVI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1018352332566-bl2fjsp56t72gv1he27d9ud30cnknic2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

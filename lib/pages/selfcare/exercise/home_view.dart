@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/colors.dart';
-import 'package:project/pages/selfcare/catagories.dart';
+import 'package:project/pages/selfcare/categories.dart';
 import 'package:project/pages/selfcare/exercise/mode.dart';
 
 class Exercise {

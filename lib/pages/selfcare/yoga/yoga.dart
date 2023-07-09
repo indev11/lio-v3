@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/colors.dart';
-import 'package:project/pages/selfcare/catagories.dart';
+import 'package:project/pages/selfcare/categories.dart';
 import 'package:project/pages/selfcare/yoga/v1yoga.dart';
 import 'package:project/pages/selfcare/yoga/v2yoga.dart';
 import 'package:project/pages/selfcare/yoga/v3yoga.dart';

@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:project/colors.dart';
-import 'package:project/pages/selfcare/catagories.dart';
+import 'package:project/pages/selfcare/categories.dart';
 import 'package:project/pages/selfcare/journal/Add.dart';
 import 'package:project/pages/selfcare/journal/edit.dart';
 import 'package:project/pages/selfcare/journal/model/user_models.dart';

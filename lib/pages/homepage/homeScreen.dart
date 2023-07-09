@@ -9,7 +9,7 @@ import 'package:project/pages/blog/blog.dart';
 import 'package:project/pages/loginScreen.dart';
 import 'package:project/pages/professionalCare/doctor.dart';
 import 'package:project/pages/professionalCare/welcome_screen.dart';
-import 'package:project/pages/selfcare/catagories.dart';
+import 'package:project/pages/selfcare/categories.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

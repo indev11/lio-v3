@@ -11,14 +11,12 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-  final _formfield = GlobalKey<FormState>();
-  final nameController = TextEditingController();
-  final passController = TextEditingController();
-  final confrmController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController passController = TextEditingController();
+  final TextEditingController confrmController = TextEditingController();
   bool passToggle = true;
   String errorMessage = '';
-
-  bool isRememberMe = false;
 
   Widget buildNickname() {
     return Column(
@@ -27,7 +25,10 @@ class _SignupScreenState extends State<SignupScreen> {
         Text(
           'Email',
           style: TextStyle(
-              color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+            color: Colors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         SizedBox(
           height: 10,
@@ -35,12 +36,16 @@ class _SignupScreenState extends State<SignupScreen> {
         Container(
           alignment: Alignment.centerLeft,
           decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.black26, blurRadius: 6, offset: Offset(0, 2))
-              ]),
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black26,
+                blurRadius: 6,
+                offset: Offset(0, 2),
+              ),
+            ],
+          ),
           height: 60,
           child: TextFormField(
             keyboardType: TextInputType.emailAddress,
@@ -49,19 +54,27 @@ class _SignupScreenState extends State<SignupScreen> {
               color: Colors.black87,
             ),
             decoration: InputDecoration(
-                border: InputBorder.none,
-                contentPadding: EdgeInsets.only(top: 14),
-                prefixIcon: Icon(
-                  Icons.person,
-                  color: primary,
-                ),
-                hintText: 'Email',
-                hintStyle: TextStyle(
-                  color: Colors.black38,
-                )),
-            validator: validateEmail,
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.only(top: 14),
+              prefixIcon: Icon(
+                Icons.person,
+                color: primary,
+              ),
+              hintText: 'Email',
+              hintStyle: TextStyle(
+                color: Colors.black38,
+              ),
+            ),
+            validator: (value) {
+              if (value!.isEmpty) {
+                return "Enter Email";
+              } else if (!value.contains('@')) {
+                return "Enter Valid Email";
+              }
+              return null;
+            },
           ),
-        )
+        ),
       ],
     );
   }
@@ -73,7 +86,10 @@ class _SignupScreenState extends State<SignupScreen> {
         Text(
           'Password',
           style: TextStyle(
-              color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+            color: Colors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         SizedBox(
           height: 10,
@@ -81,12 +97,16 @@ class _SignupScreenState extends State<SignupScreen> {
         Container(
           alignment: Alignment.centerLeft,
           decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.black26, blurRadius: 6, offset: Offset(0, 2))
-              ]),
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black26,
+                blurRadius: 6,
+                offset: Offset(0, 2),
+              ),
+            ],
+          ),
           height: 60,
           child: TextFormField(
             obscureText: passToggle,
@@ -95,28 +115,37 @@ class _SignupScreenState extends State<SignupScreen> {
               color: Colors.black87,
             ),
             decoration: InputDecoration(
-                border: InputBorder.none,
-                contentPadding: EdgeInsets.only(top: 14),
-                prefixIcon: Icon(
-                  Icons.lock,
-                  color: primary,
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.only(top: 14),
+              prefixIcon: Icon(
+                Icons.lock,
+                color: primary,
+              ),
+              suffixIcon: InkWell(
+                onTap: () {
+                  setState(() {
+                    passToggle = !passToggle;
+                  });
+                },
+                child: Icon(
+                  passToggle ? Icons.visibility : Icons.visibility_off,
                 ),
-                suffixIcon: InkWell(
-                  onTap: () {
-                    setState(() {
-                      passToggle = !passToggle;
-                    });
-                  },
-                  child: Icon(
-                      passToggle ? Icons.visibility : Icons.visibility_off),
-                ),
-                hintText: 'Password',
-                hintStyle: TextStyle(
-                  color: Colors.black38,
-                )),
-            validator: validatePassword,
+              ),
+              hintText: 'Password',
+              hintStyle: TextStyle(
+                color: Colors.black38,
+              ),
+            ),
+            validator: (value) {
+              if (value!.isEmpty) {
+                return "Enter Password";
+              } else if (value.length < 6) {
+                return "Password should be at least 6 characters long";
+              }
+              return null;
+            },
           ),
-        )
+        ),
       ],
     );
   }
@@ -128,7 +157,10 @@ class _SignupScreenState extends State<SignupScreen> {
         Text(
           'Confirm Password',
           style: TextStyle(
-              color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+            color: Colors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         SizedBox(
           height: 10,
@@ -136,49 +168,56 @@ class _SignupScreenState extends State<SignupScreen> {
         Container(
           alignment: Alignment.centerLeft,
           decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.black26, blurRadius: 6, offset: Offset(0, 2))
-              ]),
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black26,
+                blurRadius: 6,
+                offset: Offset(0, 2),
+              ),
+            ],
+          ),
           height: 60,
           child: TextFormField(
-              obscureText: passToggle,
-              controller: confrmController,
-              style: TextStyle(
-                color: Colors.black87,
+            obscureText: passToggle,
+            controller: confrmController,
+            style: TextStyle(
+              color: Colors.black87,
+            ),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.only(top: 14),
+              prefixIcon: Icon(
+                Icons.lock,
+                color: primary,
               ),
-              decoration: InputDecoration(
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.only(top: 14),
-                  prefixIcon: Icon(
-                    Icons.lock,
-                    color: primary,
-                  ),
-                  suffixIcon: InkWell(
-                    onTap: () {
-                      setState(() {
-                        passToggle = !passToggle;
-                      });
-                    },
-                    child: Icon(
-                        passToggle ? Icons.visibility : Icons.visibility_off),
-                  ),
-                  hintText: 'Password',
-                  hintStyle: TextStyle(
-                    color: Colors.black38,
-                  )),
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return "Please re-enter password";
-                }
-                if (passController.text != confrmController.text) {
-                  return "Password do not match";
-                }
-                return null;
-              }),
-        )
+              suffixIcon: InkWell(
+                onTap: () {
+                  setState(() {
+                    passToggle = !passToggle;
+                  });
+                },
+                child: Icon(
+                  passToggle ? Icons.visibility : Icons.visibility_off,
+                ),
+              ),
+              hintText: 'Confirm Password',
+              hintStyle: TextStyle(
+                color: Colors.black38,
+              ),
+            ),
+            validator: (value) {
+              if (value!.isEmpty) {
+                return "Please re-enter password";
+              }
+              if (value != passController.text) {
+                return "Passwords do not match";
+              }
+              return null;
+            },
+          ),
+        ),
       ],
     );
   }
@@ -197,22 +236,22 @@ class _SignupScreenState extends State<SignupScreen> {
           backgroundColor: Colors.white,
         ),
         onPressed: () {
-          if (_formfield.currentState!.validate()) {
-            try {
-              FirebaseAuth.instance
-                  .createUserWithEmailAndPassword(
-                      email: nameController.text, password: passController.text)
-                  .then((value) {
-                print("Created new Account");
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => HomeScreen()));
-              }).onError((error, stackTrace) {
-                print("error ${error.toString()}");
+          if (_formKey.currentState!.validate()) {
+            FirebaseAuth.instance
+                .createUserWithEmailAndPassword(
+              email: nameController.text,
+              password: passController.text,
+            )
+                .then((value) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => HomeScreen()),
+              );
+            }).catchError((error) {
+              setState(() {
+                errorMessage = error.toString();
               });
-              errorMessage = '';
-            } on FirebaseAuthException catch (error) {
-              errorMessage = error.message!;
-            }
+            });
           }
         },
         child: Text(
@@ -239,13 +278,15 @@ class _SignupScreenState extends State<SignupScreen> {
                 height: double.infinity,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
                       primary,
                       primary,
-                    ])),
+                    ],
+                  ),
+                ),
                 child: SingleChildScrollView(
                   physics: AlwaysScrollableScrollPhysics(),
                   padding: EdgeInsets.symmetric(
@@ -253,32 +294,34 @@ class _SignupScreenState extends State<SignupScreen> {
                     vertical: 120,
                   ),
                   child: Form(
-                    key: _formfield,
+                    key: _formKey,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         IconButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => LoginScreen(),
-                                ),
-                              );
-                            },
-                            icon: Icon(
-                              Icons.arrow_back,
-                              color: Colors.white,
-                            )),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => LoginScreen(),
+                              ),
+                            );
+                          },
+                          icon: Icon(
+                            Icons.arrow_back,
+                            color: Colors.white,
+                          ),
+                        ),
                         SizedBox(
                           height: 15,
                         ),
                         Text(
                           'Sign Up',
                           style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 40,
-                              fontWeight: FontWeight.bold),
+                            color: Colors.white,
+                            fontSize: 40,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                         SizedBox(
                           height: 50,
@@ -292,46 +335,25 @@ class _SignupScreenState extends State<SignupScreen> {
                           height: 20,
                         ),
                         buildcnfrmPassword(),
-                        Center(
-                          child: Text(errorMessage),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          errorMessage,
+                          style: TextStyle(
+                            color: Colors.red,
+                          ),
                         ),
                         buildSignupBtn(),
                       ],
                     ),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),
       ),
     );
   }
-}
-
-String? validateEmail(String? formEmail) {
-  if (formEmail == null || formEmail.isEmpty)
-    return 'Email address is required';
-
-  String pattern = r'\w+@\w+\.\w+';
-  RegExp regex = RegExp(pattern);
-  if (!regex.hasMatch(formEmail)) return 'Invalid Email Address format';
-
-  return null;
-}
-
-String? validatePassword(String? formPassword) {
-  if (formPassword == null || formPassword.isEmpty)
-    return 'Password is required';
-
-  String pattern =
-      r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
-  RegExp regex = RegExp(pattern);
-  if (!regex.hasMatch(formPassword))
-    return '''
-      Password must be atleast 8 characters,
-      include an uppercase letter, number and symbol
-      ''';
-
-  return null;
 }

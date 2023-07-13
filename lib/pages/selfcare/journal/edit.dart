@@ -1,12 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:project/pages/selfcare/journal/model/user_models.dart';
 
 class EditPage extends StatefulWidget {
   final UserModel user;
+
   const EditPage({Key? key, required this.user}) : super(key: key);
 
   @override
@@ -20,9 +18,15 @@ class _EditPageState extends State<EditPage> {
   @override
   void initState() {
     titleController = TextEditingController(text: widget.user.title);
-    descriptionController =
-        TextEditingController(text: widget.user.description);
+    descriptionController = TextEditingController(text: widget.user.description);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    titleController?.dispose();
+    descriptionController?.dispose();
+    super.dispose();
   }
 
   @override
@@ -38,7 +42,9 @@ class _EditPageState extends State<EditPage> {
             TextFormField(
               controller: titleController,
               decoration: InputDecoration(
-                  labelText: 'Enter title', border: OutlineInputBorder()),
+                labelText: 'Enter title',
+                border: OutlineInputBorder(),
+              ),
             ),
             SizedBox(
               height: 10,
@@ -46,28 +52,34 @@ class _EditPageState extends State<EditPage> {
             TextFormField(
               controller: descriptionController,
               decoration: InputDecoration(
-                  labelText: 'Enter description', border: OutlineInputBorder()),
+                labelText: 'Enter description',
+                border: OutlineInputBorder(),
+              ),
             ),
             SizedBox(
               height: 10,
             ),
             ElevatedButton(
-                onPressed: () {
-                  firestoreHelper
-                      .update(UserModel(
-                          id: widget.user.id,
-                          title: titleController!.text,
-                          description: descriptionController!.text))
-                      .then((value) => {Navigator.pop(context)});
-                },
-                style: ButtonStyle(backgroundColor:
-                    MaterialStateProperty.resolveWith<Color>(
-                        (Set<MaterialState> states) {
-                  if (states.contains(MaterialState.pressed))
-                    return Colors.green;
-                  return Colors.pink;
-                })),
-                child: Text("Update"))
+              onPressed: () {
+                firestoreHelper
+                    .update(UserModel(
+                  id: widget.user.id,
+                  title: titleController!.text,
+                  description: descriptionController!.text,
+                ))
+                    .then((value) => Navigator.pop(context));
+              },
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                  (Set<MaterialState> states) {
+                    if (states.contains(MaterialState.pressed))
+                      return Colors.green;
+                    return Colors.pink;
+                  },
+                ),
+              ),
+              child: Text("Update"),
+            )
           ],
         ),
       ),
@@ -76,20 +88,18 @@ class _EditPageState extends State<EditPage> {
 }
 
 class firestoreHelper {
-  static Stream<List<UserModel>> read() {
+  static Stream<QuerySnapshot<Map<String, dynamic>>> read() {
     final userCollection = FirebaseFirestore.instance.collection("journal");
-    return userCollection.snapshots().map((QuerySnapshot) =>
-        QuerySnapshot.docs.map((e) => UserModel.fromSnapShot(e)).toList());
+    return userCollection.snapshots();
   }
 
-  static Future create(UserModel user) async {
+  static Future<void> create(UserModel user) async {
     final userCollection = FirebaseFirestore.instance.collection("journal");
 
-    final uid = userCollection.doc().id;
-    final docRef = userCollection.doc(uid);
+    final docRef = userCollection.doc();
 
     final newUser = UserModel(
-      id: uid,
+      id: docRef.id,
       title: user.title,
       description: user.description,
     ).toJson();
@@ -97,11 +107,11 @@ class firestoreHelper {
     try {
       await docRef.set(newUser);
     } catch (e) {
-      print("some error occured");
+      print("Some error occurred: $e");
     }
   }
 
-  static Future update(UserModel user) async {
+  static Future<void> update(UserModel user) async {
     final userCollection = FirebaseFirestore.instance.collection("journal");
 
     final docRef = userCollection.doc(user.id);
@@ -115,13 +125,14 @@ class firestoreHelper {
     try {
       await docRef.update(newUser);
     } catch (e) {
-      print("some error occured");
+      print("Some error occurred: $e");
     }
   }
 
-  static Future delete(UserModel user) async {
+  static Future<void> delete(UserModel user) async {
     final userCollection = FirebaseFirestore.instance.collection("journal");
 
-    final docRef = userCollection.doc(user.id).delete();
+    final docRef = userCollection.doc(user.id);
+    await docRef.delete();
   }
 }

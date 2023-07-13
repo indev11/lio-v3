@@ -12,7 +12,8 @@ import 'package:project/pages/professionalCare/welcome_screen.dart';
 import 'package:project/pages/selfcare/categories.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  bool isGuest = false;
+  HomeScreen({super.key, this.isGuest=false});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -393,7 +394,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => Catagories()));
+                                          builder: (context) => Catagories(isGuest: widget.isGuest,)));
                                 },
                                 child: Container(
                                     padding: EdgeInsets.all(13),

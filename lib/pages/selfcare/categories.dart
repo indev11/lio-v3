@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project/colors.dart';
@@ -8,7 +10,8 @@ import 'package:project/pages/selfcare/meditation/meditation.dart';
 import 'package:project/pages/selfcare/yoga/yoga.dart';
 
 class Catagories extends StatelessWidget {
-  const Catagories({super.key});
+  bool isGuest = false;
+  Catagories({super.key, this.isGuest = false});
 
   @override
   Widget build(BuildContext context) {
@@ -18,13 +21,14 @@ class Catagories extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: primary,
       ),
-      home: const MyHomePage(),
+      home: MyHomePage(isGuest: isGuest),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+  bool isGuest = false;
+   MyHomePage({this.isGuest = false});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -202,7 +206,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   InkWell(
                     onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => MainActivity()));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => MainActivity(isGuest: widget.isGuest,)));
           },
                     child: Container(
                       decoration: BoxDecoration(

@@ -169,10 +169,10 @@ class _DoctorState extends State<Doctor> {
         SizedBox(
           height: 15,
         ),
-        Text(
-          "Phone No: +919349480708",
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
-        ),
+        // Text(
+        //   "Phone No: +919349480708",
+        //   style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
+        // ),
         SizedBox(
           height: 15,
         ),

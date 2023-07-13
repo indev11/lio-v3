@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -7,29 +9,28 @@ import 'package:project/pages/selfcare/journal/Add.dart';
 import 'package:project/pages/selfcare/journal/edit.dart';
 import 'package:project/pages/selfcare/journal/model/user_models.dart';
 
-class MainActivity extends StatefulWidget {
-  const MainActivity({Key? key}) : super(key: key);
+  class MainActivity extends StatefulWidget {
+    bool isGuest = false;
+    MainActivity({required this.isGuest, Key? key}) : super(key: key);
 
-  @override
-  State<MainActivity> createState() => _MainActivityState();
-}
+    @override
+    State<MainActivity> createState() => _MainActivityState();
+  }
 
 class _MainActivityState extends State<MainActivity> {
-  String uid = '';
-
-  getuid() async {
-    FirebaseAuth auth = FirebaseAuth.instance;
-    final User? user = await auth.currentUser;
-    setState(() {
-      uid = user!.uid;
-    });
-  }
+  late String uid;
+  String? userid;
 
   @override
   void initState() {
-    // TODO: implement initState
-    getuid();
     super.initState();
+    getUserID();
+  }
+
+  void getUserID() {
+    FirebaseAuth auth = FirebaseAuth.instance;
+                User? user = auth.currentUser;
+                userid = user?.uid;
   }
 
   @override
@@ -52,76 +53,81 @@ class _MainActivityState extends State<MainActivity> {
       ),
       backgroundColor: Color.fromARGB(108, 149, 167, 183),
       body: Container(
-        child: Column(
-          children: [
-            StreamBuilder<List<UserModel>>(
-              stream: firestoreHelper.read(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-                if (snapshot.hasData) {
-                  final userData = snapshot.data;
-                  return Expanded(
-                    child: ListView.builder(
-                      itemBuilder: (context, index) {
-                        final singleUser = userData![index];
-                        return InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => EditPage(
-                                  user: UserModel(
-                                    title: singleUser.title,
-                                    description: singleUser.description,
-                                    id: singleUser.id,
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                          child: Container(
-                            padding: EdgeInsets.all(20),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Colors.white,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "${singleUser.title}",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                SizedBox(height: 10),
-                                Text(
-                                  "${singleUser.description}",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ],
+        child: StreamBuilder<QuerySnapshot>(
+          stream: FirebaseFirestore.instance
+              .collection("journal")
+              .where("id", isEqualTo: userid)
+              .snapshots(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            if(widget.isGuest) {
+              return const Center(
+                child: Text("Login required to acess this page", style: TextStyle(color: Colors.white, fontSize: 17),),
+              );
+            }
+            if (snapshot.hasData) {
+              log("message");
+              // log()
+              final userData = snapshot.data!.docs;
+              return ListView.builder(
+                itemCount: userData.length,
+                itemBuilder: (context, index) {
+                  final singleUser = UserModel.fromSnapShot(userData[index]);
+                  return InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => EditPage(
+                            user: UserModel(
+                              title: singleUser.title,
+                              description: singleUser.description,
+                              id: singleUser.id,
                             ),
                           ),
-                        );
-                      },
-                      itemCount: userData!.length,
+                        ),
+                      );
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(20),
+                      margin: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.white,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "${singleUser.title}",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          Text(
+                            "${singleUser.description}",
+                            style: TextStyle(
+                              color: Colors.black,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   );
-                }
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              },
-            ),
-          ],
+                },
+              );
+            }
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          },
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -135,56 +141,5 @@ class _MainActivityState extends State<MainActivity> {
         ),
       ),
     );
-  }
-}
-
-class firestoreHelper {
-  static Stream<List<UserModel>> read() {
-    final userCollection = FirebaseFirestore.instance.collection("journal");
-    return userCollection.snapshots().map((QuerySnapshot) =>
-        QuerySnapshot.docs.map((e) => UserModel.fromSnapShot(e)).toList());
-  }
-
-  static Future create(UserModel user) async {
-    final userCollection = FirebaseFirestore.instance.collection("journal");
-
-    final uid = userCollection.doc().id;
-    final docRef = userCollection.doc(uid);
-
-    final newUser = UserModel(
-      id: uid,
-      title: user.title,
-      description: user.description,
-    ).toJson();
-
-    try {
-      await docRef.set(newUser);
-    } catch (e) {
-      print("some error occurred");
-    }
-  }
-
-  static Future update(UserModel user) async {
-    final userCollection = FirebaseFirestore.instance.collection("journal");
-
-    final docRef = userCollection.doc(user.id);
-
-    final newUser = UserModel(
-      id: user.id,
-      title: user.title,
-      description: user.description,
-    ).toJson();
-
-    try {
-      await docRef.update(newUser);
-    } catch (e) {
-      print("some error occurred");
-    }
-  }
-
-  static Future delete(UserModel user) async {
-    final userCollection = FirebaseFirestore.instance.collection("journal");
-
-    final docRef = userCollection.doc(user.id).delete();
   }
 }

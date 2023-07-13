@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:project/colors.dart';
 import 'package:project/pages/selfcare/categories.dart';
@@ -36,7 +37,7 @@ class ExercisesPage extends StatelessWidget {
     Exercise(
       name: 'Burpee',
       mediaUrl: 'https://i.pinimg.com/originals/56/ab/43/56ab43202aba0f1efbf1d90b9dd474ea.gif',
-      description: 'STEPS:\n\n 1. Stand straight with your feet shoulder-width apart.\n\n2. Squat and place your hands in front of your feet.  \n\n3. Jump back until your body is in plank position. \n\n 4. Do a push up, jump forward, and then push through the heels to return to the starting position. \n\n5. Repeat',
+      description: 'STEPS:\n\n 1. Stand straight with your feet shoulder-width apart.\n\n2. Squat and place your hands in front of your feet.\n\n3. Jump back until your body is in plank position. \n\n 4. Do a push up, jump forward, and then push through the heels to return to the starting position.\n\n5. Repeat',
     ),
     Exercise(
       name: 'Crunch',
@@ -60,7 +61,7 @@ class ExercisesPage extends StatelessWidget {
     ),
   ];
 
-  @override
+@override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false, // Remove debug banner
@@ -103,22 +104,63 @@ class ExerciseListPage extends StatelessWidget {
       body: ListView.builder(
         itemCount: exercises.length,
         itemBuilder: (context, index) {
-          return ListTile(
-            onTap: () {
-              Navigator.pushNamed(
-                context,
-                ExerciseDetailPage.routeName,
-                arguments: exercises[index],
-              );
-            },
-            leading: Icon(Icons.fitness_center),
-            title: Text(exercises[index].name),
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: Card(
+              elevation: 2,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: ListTile(
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    ExerciseDetailPage.routeName,
+                    arguments: exercises[index],
+                  );
+                },
+                leading: Container(
+                  padding: EdgeInsets.all(8), // Add padding here
+                  width: 45,
+                  height: 45,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.08),
+                        
+                        blurRadius: 0.8,
+                       
+                      ),
+                    ],
+                  ),
+                  child: ClipOval(
+                    child: Image.network(
+                      exercises[index].mediaUrl,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                title: Text(
+                  exercises[index].name,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
           );
         },
       ),
     );
   }
 }
+
+
+
+
+
 
 class ExerciseDetailPage extends StatelessWidget {
   static const routeName = '/exercise-detail';
@@ -127,32 +169,41 @@ class ExerciseDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final Exercise exercise = ModalRoute.of(context)!.settings.arguments as Exercise;
 
-    return Scaffold(
+return Scaffold(
       appBar: AppBar(
         title: Text(exercise.name),
       ),
-      body: Column(
-        children: [
-          Image.network(
-            exercise.mediaUrl,
-            loadingBuilder: (context, child, loadingProgress) {
-              if (loadingProgress == null) return child;
-              return CircularProgressIndicator();
-            },
-          ),
-          SizedBox(height: 16),
-          Padding(
-            padding:
-              EdgeInsets.symmetric(horizontal: 16),
-            child: Text(
-              exercise.description,
-              style: TextStyle(
-                fontSize: 16,
-              ),
-              textAlign: TextAlign.left,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Image.network(
+              exercise.mediaUrl,
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) return child;
+                return CircularProgressIndicator();
+              },
             ),
-          ),
-        ],
+            SizedBox(height: 5),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Container(
+                padding: EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: primary,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Text(
+                  exercise.description,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.white,
+                  ),
+                  textAlign: TextAlign.left,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

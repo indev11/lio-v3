@@ -25,11 +25,11 @@ LIO (Let It Out) is a self-help app designed to promote mental health and provid
 
 ## Technologies Used
 
-- Flutter: Cross-platform framework for building mobile applications ![Flutter Logo](INSERT_FLUTTER_LOGO_URL_HERE)
-- Firebase: Backend-as-a-Service (BaaS) platform for authentication, data storage, and real-time database ![Firebase Logo](INSERT_FIREBASE_LOGO_URL_HERE)
-- Cloud Firestore: NoSQL document database for storing user data ![Cloud Firestore Logo](INSERT_FIRESTORE_LOGO_URL_HERE)
+- Flutter: Cross-platform framework for building mobile applications ![Flutter Logo](https://logowik.com/content/uploads/images/flutter5786.jpg)
+- Firebase: Backend-as-a-Service (BaaS) platform for authentication, data storage, and real-time database ![Firebase Logo](https://logowik.com/content/uploads/images/firebase.jpg)
+- Cloud Firestore: NoSQL document database for storing user data ![Cloud Firestore Logo](https://logowik.com/content/uploads/images/firestore6915.jpg)
 - Provider: State management solution for Flutter applications ![Provider Logo](INSERT_PROVIDER_LOGO_URL_HERE)
-- Material Design: UI/UX design guidelines for a visually appealing and intuitive user interface ![Material Design Logo](INSERT_MATERIAL_DESIGN_LOGO_URL_HERE)
+- Material Design: UI/UX design guidelines for a visually appealing and intuitive user interface ![Material Design Logo](https://logowik.com/content/uploads/images/figma.jpg)
 
 ## Contributing
 

@@ -1,22 +1,8 @@
-<h1 align="center">
-  <br>
-  <img src="logo.png" alt="LIO" width="200">
-  <br>
-  LIO (Let It Out)
-  <br>
-</h1>
+# LIO (Let It Out)
 
-<p align="center">
-  <strong>A mental health-focused self-help app</strong>
-</p>
+![LIO Logo](INSERT_LOGO_URL_HERE)
 
-<p align="center">
-  <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License">
-</p>
-
-<p align="center">
-  <img src="screenshot.png" alt="LIO Screenshot">
-</p>
+LIO (Let It Out) is a self-help app designed to promote mental health and provide support for individuals seeking ways to manage their emotions, reduce stress, and improve overall well-being. The app offers a variety of features and resources to assist users in their self-care journey.
 
 ## Features
 
@@ -39,19 +25,11 @@
 
 ## Technologies Used
 
-<p align="center">
-  <img src="icons/flutter.png" alt="Flutter" height="50">
-  <img src="icons/firebase.png" alt="Firebase" height="50">
-  <img src="icons/firestore.png" alt="Cloud Firestore" height="50">
-  <img src="icons/provider.png" alt="Provider" height="50">
-  <img src="icons/material-design.png" alt="Material Design" height="50">
-</p>
-
-- **Flutter**: Cross-platform framework for building mobile applications
-- **Firebase**: Backend-as-a-Service (BaaS) platform for authentication, data storage, and real-time database
-- **Cloud Firestore**: NoSQL document database for storing user data
-- **Provider**: State management solution for Flutter applications
-- **Material Design**: UI/UX design guidelines for a visually appealing and intuitive user interface
+- Flutter: Cross-platform framework for building mobile applications ![Flutter Logo](INSERT_FLUTTER_LOGO_URL_HERE)
+- Firebase: Backend-as-a-Service (BaaS) platform for authentication, data storage, and real-time database ![Firebase Logo](INSERT_FIREBASE_LOGO_URL_HERE)
+- Cloud Firestore: NoSQL document database for storing user data ![Cloud Firestore Logo](INSERT_FIRESTORE_LOGO_URL_HERE)
+- Provider: State management solution for Flutter applications ![Provider Logo](INSERT_PROVIDER_LOGO_URL_HERE)
+- Material Design: UI/UX design guidelines for a visually appealing and intuitive user interface ![Material Design Logo](INSERT_MATERIAL_DESIGN_LOGO_URL_HERE)
 
 ## Contributing
 
@@ -60,6 +38,11 @@ Contributions are welcome! If you encounter any issues or have suggestions for n
 ## License
 
 This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
+
+## Acknowledgments
+
+- The LIO team would like to express gratitude to all contributors, developers, and designers who have made this project possible.
+- Special thanks to the Flutter and Firebase communities for providing valuable resources and support.
 
 ## Contact
 
